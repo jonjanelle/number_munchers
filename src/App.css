@@ -30,3 +30,37 @@
     transform: rotate(360deg);
   }
 }
+
+.footer-main {
+  height: 10vh;
+  line-height: 10vh;
+}
+
+.header-main {
+  height: 10vh;
+  overflow: hidden;
+}
+.header-main > div {
+  color: lightgreen;
+}
+
+.board-main {
+  height: 80vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  align-content: space-around;
+}
+
+.square-main {
+  border: 2px solid white;
+  line-height: 16vh;
+  flex-basis: 18vw;
+  height: 16vh;
+}
+.square-main > img {
+  vertical-align: middle;
+  max-width: 90%;
+  max-height: 95%;
+}
