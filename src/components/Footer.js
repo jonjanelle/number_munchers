@@ -4,7 +4,7 @@ class Footer extends Component {
   render() {
     return (
       <div className="footer-main">
-        HEEEEEEEEEEEEEEEEEEEEY!
+      <div>Score: {this.props.score}</div>
       </div>
     );
   }

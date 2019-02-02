@@ -35,13 +35,14 @@
   height: 10vh;
   line-height: 10vh;
 }
+.footer-main > div {
+  color: lightgreen;
+}
 
 .header-main {
   height: 10vh;
+  vertical-align: middle;
   overflow: hidden;
-}
-.header-main > div {
-  color: lightgreen;
 }
 
 .board-main {

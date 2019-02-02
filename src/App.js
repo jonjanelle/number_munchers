@@ -22,7 +22,7 @@ class App extends Component {
       cols: 5, 
       playerX: 0, 
       playerY: 0,
-      prompt: "multiples of 3",
+      prompt: "",
       feedback: "",
       image: "./images/player.png",
       actionImage: '', 
@@ -91,7 +91,6 @@ class App extends Component {
     return (
       <div className="App">
         <Header
-          score={this.state.score}
           prompt={this.state.prompt}
           feedback={this.state.feedback}
         >
@@ -105,7 +104,9 @@ class App extends Component {
           setPrompt={this.setPrompt}
         >
         </GameBoard>
-        <Footer></Footer>
+        <Footer
+          score={this.state.score}
+        ></Footer>
       </div>
     );
   }

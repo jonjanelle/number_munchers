@@ -6,38 +6,35 @@ import ACTION_TYPES from '../classes/ActionTypes';
 class GameBoard extends Component {
   constructor(props) {
     super(props);
-    let actionType = ACTION_TYPES.MUL;
-    let initData = this.initBoardData(actionType);
+    let actionType = ACTION_TYPES.ADD;
+    let lower = 2;
+    let upper = 10;
+    let generator = new ProblemGenerator(actionType, lower, upper); 
+    let initData = this.initBoardData(generator);
     this.state = {
       boardData: initData[0],
       solutions: initData[1],
-      actionType: actionType
+      actionType: actionType,
+      lowerBound: lower, 
+      upperBound: upper,
+      generator: generator
     };
 
-    console.log("prompt" , initData[2]);
-    this.props.setPrompt(initData[2]);
-    
+    this.props.setPrompt(initData[2]); 
   }
 
-  initBoardData(action) {
-    let g = new ProblemGenerator(action, 2, 10);
+  initBoardData(generator) {
     let probs = [];
     let sols = [];
-    let solCounts = {};
-    let maxCount = 0;
-    let target = 0;
+
+    let target = generator.getRandom(2*generator.lowerBound, 2*generator.upperBound)
     for (let y = 0; y < this.props.rows; y++) {
       let probRow = [];
       let solRow = [];
       for (let x = 0; x < this.props.cols; x++) {
-        let problem = g.generate();
+        let problem = generator.generate(target);
         probRow.push(problem.displayString);
         solRow.push(problem.solution);
-        solCounts[problem.solution] = solCounts[problem.solution] === undefined ? 1 : solCounts[problem.solution] + 1;
-        if (solCounts[problem.solution] > maxCount) {
-          maxCount = solCounts[problem.solution];
-          target = problem.solution;
-        }
       }
       probs.push(probRow);
       sols.push(solRow);
@@ -45,19 +42,17 @@ class GameBoard extends Component {
     
     let promptString = "";
     // TODO: Randomly generate prompt string types
-    //       Mixed action types individual problems
-    if (action === ACTION_TYPES.ADD)
+    if (generator.actionType === ACTION_TYPES.ADD)
       promptString = `Sums to ${target}`;
-    else if (action === ACTION_TYPES.SUB)
+    else if (generator.actionType === ACTION_TYPES.SUB)
       promptString = `A - B = ${target}`;
-    else if (action === ACTION_TYPES.MUL)
+    else if (generator.actionType === ACTION_TYPES.MUL)
       promptString = `A x B = ${target}`;
-    else if (action === ACTION_TYPES.DIV)
+    else if (generator.actionType === ACTION_TYPES.DIV)
       promptString = `A / B = ${target}`;
-    else if (action === ACTION_TYPES.MOD)
+    else if (generator.actionType === ACTION_TYPES.MOD)
       promptString = `A MOD B = ${target}`;
     
-
     return ([probs, sols, promptString]);
   }
 
