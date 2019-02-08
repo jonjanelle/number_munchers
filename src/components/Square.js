@@ -12,15 +12,13 @@ class Square extends Component {
   getSquare() {
       if (this.props.isPlayerPosition){
         if (this.props.showAction) 
-          return (<div className="square-main"><img src={require('../images/player_action_1.png')} /></div>);
+          return (<div className="square-main"><img alt="player" src={require('../images/player_action_1.png')} /></div>);
         else 
-          return (<div className="square-main"><img src={require('../images/player.png')} /></div>);
+          return (<div className="square-main"><img alt="player" src={require('../images/player.png')} /></div>);
       }
     else 
         return (<div className="square-main">{this.props.value}</div>);
   }
-
-
 
   render() {
     return this.getSquare();

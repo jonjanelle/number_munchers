@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import Square from './Square';
 import ProblemGenerator from '../classes/ProblemGenerator.js';
-import ACTION_TYPES from '../classes/ActionTypes';
+import ActionType from '../classes/ActionType';
 
 class GameBoard extends Component {
   constructor(props) {
     super(props);
-    let actionType = ACTION_TYPES.ADD;
+    let actionType = ActionType.Add;
     let lower = 2;
     let upper = 10;
     let generator = new ProblemGenerator(actionType, lower, upper); 
@@ -20,7 +20,8 @@ class GameBoard extends Component {
       generator: generator
     };
 
-    this.props.setPrompt(initData[2]); 
+    
+    this.props.onLevelStart(initData[2], sols); 
   }
 
   initBoardData(generator) {
@@ -40,17 +41,18 @@ class GameBoard extends Component {
       sols.push(solRow);
     }
     
+
     let promptString = "";
     // TODO: Randomly generate prompt string types
-    if (generator.actionType === ACTION_TYPES.ADD)
+    if (generator.actionType === ActionType.Add)
       promptString = `Sums to ${target}`;
-    else if (generator.actionType === ACTION_TYPES.SUB)
+    else if (generator.actionType === ActionType.Sub)
       promptString = `A - B = ${target}`;
-    else if (generator.actionType === ACTION_TYPES.MUL)
+    else if (generator.actionType === ActionType.Mul)
       promptString = `A x B = ${target}`;
-    else if (generator.actionType === ACTION_TYPES.DIV)
+    else if (generator.actionType === ActionType.Div)
       promptString = `A / B = ${target}`;
-    else if (generator.actionType === ACTION_TYPES.MOD)
+    else if (generator.actionType === ActionType.Mod)
       promptString = `A MOD B = ${target}`;
     
     return ([probs, sols, promptString]);
@@ -87,7 +89,6 @@ class GameBoard extends Component {
     
     return result;
   }
-
 
   render() {
     return (

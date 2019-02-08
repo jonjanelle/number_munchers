@@ -1,4 +1,4 @@
-import {ACTION_TYPES, INVERSE_ACTIONS} from './ActionTypes.js';
+import { InverseSymbol } from './ActionType.js';
 import Problem from './Problem.js';
 
 export default class ProblemGenerator {
@@ -16,7 +16,7 @@ export default class ProblemGenerator {
             let operand2 = -1;
             while (operand1 < 0 || operand2 < 0) {
                 operand1 = this.getRandom();
-                operand2 = new Problem(target, operand1, INVERSE_ACTIONS[this.actionType]).getSolution();
+                operand2 = new Problem(target, operand1, InverseSymbol[this.actionType]).getSolution();
             }
             return new Problem(operand1, operand2, this.actionType);
         } else {

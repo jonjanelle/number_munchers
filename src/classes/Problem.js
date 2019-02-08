@@ -1,4 +1,4 @@
-import ACTION_TYPES from './ActionTypes.js';
+import ActionType from './ActionType.js';
 
 export default class Problem {
     constructor(operand1, operand2, operator) {
@@ -10,19 +10,20 @@ export default class Problem {
     }
 
     getSolution() {
-        if (this.operator === ACTION_TYPES.ADD) 
+        if (this.operator === ActionType.Add) 
             return this.operand1 + this.operand2;
-        else if (this.operator === ACTION_TYPES.SUB) 
+        else if (this.operator === ActionType.Sub) 
             return this.operand1 - this.operand2;
-        else if (this.operator === ACTION_TYPES.MUL) 
+        else if (this.operator === ActionType.Mul) 
             return this.operand1 * this.operand2;
-        else if (this.operator === ACTION_TYPES.DIV) 
+        else if (this.operator === ActionType.Div) 
             return this.operand1 / this.operand2;
-        else if (this.operator === ACTION_TYPES.MOD) 
+        else if (this.operator === ActionType.Mod) 
             return this.operand1 % this.operand2;
     }
 
     getDisplayString() {
         return `${this.operand1} ${this.operator} ${this.operand2}`; 
     }
+    
 }

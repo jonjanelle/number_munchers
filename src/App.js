@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import KeyCode from './KeyCode';
 import Footer from './components/Footer';
 import GameBoard from './components/GameBoard';
 import Header from './components/Header';
 
 class App extends Component {
-  ARROWUP = 38;
-  ARROWDOWN = 40;
-  ARROWLEFT = 37;
-  ARROWRIGHT = 39;
-  SPACE = 32;
-  ACTION_TYPES = ["+", "-", "/", "*", "%"];
 
   constructor(props) {
     super(props);
@@ -26,11 +20,13 @@ class App extends Component {
       feedback: "",
       image: "./images/player.png",
       actionImage: '', 
-      showAction: false
+      showAction: false,
+      levelSolutions: null, 
+      levelTarget: 0
     };
     
     this.onKeyPressed = this.onKeyPressed.bind(this);
-    this.setPrompt = this.setPrompt.bind(this);
+    this.onLevelStart = this.onLevelStart.bind(this);
   }
 
   componentDidMount() {
@@ -53,16 +49,18 @@ class App extends Component {
   onKeyPressed(e) { 
     let px = this.state.playerX;
     let py = this.state.playerY;
-    if (e.keyCode === this.ARROWUP && this.canMoveUp()) 
+    if (e.keyCode === KeyCode.ArrowUp && this.canMoveUp()) 
       py -= 1;
-    else if (e.keyCode === this.ARROWDOWN && this.canMoveDown())
+    else if (e.keyCode === KeyCode.ArrowDown && this.canMoveDown())
       py += 1;
-    else if (e.keyCode === this.ARROWLEFT && this.canMoveLeft())
+    else if (e.keyCode === KeyCode.ArrowLeft && this.canMoveLeft())
       px -= 1;
-    else if (e.keyCode == this.ARROWRIGHT && this.canMoveRight())
+    else if (e.keyCode === KeyCode.ArrowRight && this.canMoveRight())
       px += 1;
-    else if (e.keyCode == this.SPACE) 
+    else if (e.keyCode === KeyCode.Space)  {
       this.animatePlayer();
+      this.checkSolution()
+    }
     
     this.setState({
       playerX: px,
@@ -70,12 +68,17 @@ class App extends Component {
     });
   }
 
-  checkSolution(posValue, solution) {
- 
+  checkSolution(posValue, target) {
+    if (posValue === target) {
+      
+      // remove value, add target to score
+    } else {
+      // value remains, subtract minimum operand from score
+    }
   }
 
-  setPrompt(newPrompt){
-    this.setState({prompt: newPrompt});
+  onLevelStart(roundPrompt, solutions) {
+    this.setState({prompt: roundPrompt, solutions: solutions});
   }
 
   animatePlayer() {
@@ -101,7 +104,7 @@ class App extends Component {
           rows={this.state.rows}
           cols={this.state.cols}
           showAction={this.state.showAction}  
-          setPrompt={this.setPrompt}
+          onLevelStart={this.onLevelStart}
         >
         </GameBoard>
         <Footer
